@@ -26,7 +26,6 @@ import org.sensorhub.impl.service.sweapi.ResourceParseException;
 import org.sensorhub.impl.service.sweapi.resource.RequestContext;
 import org.sensorhub.impl.service.sweapi.resource.ResourceLink;
 import org.sensorhub.impl.service.sweapi.resource.ResourceBindingJson;
-import org.sensorhub.impl.service.sweapi.resource.ResourceFormat;
 import org.vast.data.TextEncodingImpl;
 import org.vast.swe.SWEStaxBindings;
 import org.vast.swe.json.SWEJsonStreamReader;
@@ -128,8 +127,11 @@ public class DataStreamSchemaBindingOmJson extends ResourceBindingJson<DataStrea
         
         writer.beginObject();
         
-        writer.name("datastream@id").value(Long.toString(publicDsID, 36));
-        writer.name("obsFormat").value(ResourceFormat.OM_JSON.toString());
+        writer.name("datastream").value(Long.toString(publicDsID, 36));
+        writer.name("name").value(dsInfo.getName());
+
+        if (dsInfo.getDescription() != null)
+            writer.name("description").value(dsInfo.getDescription());
         
         // result structure 
         try
