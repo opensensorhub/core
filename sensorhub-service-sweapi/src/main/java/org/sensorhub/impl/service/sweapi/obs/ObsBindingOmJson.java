@@ -146,12 +146,12 @@ public class ObsBindingOmJson extends ResourceBindingJson<BigInteger, IObsData>
         
         var dsID = obs.getDataStreamID();
         var externalDsId = dsIdEncoder.encodeID(dsID);
-        writer.name("datastream@id").value(Long.toString(externalDsId, ResourceBinding.ID_RADIX));
+        writer.name("datastream").value(Long.toString(externalDsId, ResourceBinding.ID_RADIX));
         
         if (obs.hasFoi())
         {
             var externalfoiId = foiIdEncoder.encodeID(obs.getFoiID());
-            writer.name("foi@id").value(Long.toString(externalfoiId, ResourceBinding.ID_RADIX));
+            writer.name("foi").value(Long.toString(externalfoiId, ResourceBinding.ID_RADIX));
         }
         
         writer.name("phenomenonTime").value(obs.getPhenomenonTime().toString());

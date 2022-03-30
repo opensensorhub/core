@@ -162,8 +162,10 @@ public class DataStreamBindingJson extends ResourceBindingJson<DataStreamKey, ID
         if (dsInfo.getDescription() != null)
             writer.name("description").value(dsInfo.getDescription());
         
-        writer.name("system@id").value(Long.toString(publicSysID, 36));
-        writer.name("outputName").value(dsInfo.getOutputName());
+        writer.name("system").beginObject()
+            .name("id").value(Long.toString(publicSysID, 36))
+            .name("outputName").value(dsInfo.getOutputName())
+            .endObject();
         
         writer.name("validTime").beginArray()
             .value(dsInfo.getValidTime().begin().toString())
@@ -207,11 +209,6 @@ public class DataStreamBindingJson extends ResourceBindingJson<DataStreamKey, ID
                 writer.name("description").value(obsProp.getDescription());
             writer.endObject();
         }
-        /*for (var obsProp: getObservables(dsInfo))
-        {
-            if (obsProp.getDefinition() != null)
-                writer.value(obsProp.getDefinition());
-        }*/
         writer.endArray();
         
         // available formats
