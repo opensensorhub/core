@@ -132,9 +132,18 @@ public class SystemHandler extends AbstractFeatureHandler<ISystemWithDesc, Syste
                 .done();
         }
         
+        // foi param
+        var foiIDs = parseResourceIds("foi", queryParams, idEncoders.getFoiIdEncoder());
+        if (foiIDs != null && !foiIDs.isEmpty())
+        {
+            builder.withFois()
+                    .withInternalIDs(foiIDs)
+                    .done();
+        }
+        
         // list only top level systems by default unless specific IDs are requested
         if (!parentSelected && !searchMembers &&
-            !queryParams.containsKey("id") && !queryParams.containsKey("uid"))
+            !queryParams.containsKey("id") && !queryParams.containsKey("uid") && !queryParams.containsKey("foi"))
             builder.withNoParent();
         
         // procedure UID
